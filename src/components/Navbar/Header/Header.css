@@ -3,13 +3,16 @@
   margin: 30px auto;
   background: url("/header_img.png");
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
 }
+
 .header-content {
   position: absolute;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 1.5vw;
   max-width: 50%;
   bottom: 10%;
@@ -36,4 +39,26 @@
   background-color: white;
   font-size: max(1vw, 13px);
   border-radius: 50px;
+  cursor: pointer;
+}
+
+/* ✅ Fixed Media Queries */
+@media (max-width: 1050px) {
+  .header-content {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-content {
+    max-width: 65%;
+  }
+
+  .header-content p {
+    display: none;
+  }
+
+  .header-content button {
+    padding: 2vw 4vw;
+  }
 }

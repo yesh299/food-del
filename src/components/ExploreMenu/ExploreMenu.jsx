@@ -8,9 +8,12 @@ const ExploreMenu = ({ category, setCategory }) => {
       <h1>Explore our Menu</h1>
 
       <p className="explore-menu-text">
-        Choose from a diverse menu featuring a delectable array of dishes.
-        Our mission is to satisfy your craving and elevate your dining
-        experience, one delicious meal at a time.
+        Choose from a wide variety of tasty dishes made with fresh ingredients
+        and full of flavor. We offer something for everyone, whether you love
+        spicy food, sweet treats, or healthy meals. Our goal is to satisfy your
+        hunger and make every meal enjoyable, special, and memorable. With quick
+        delivery and great service, we bring your favorite food right to your
+        doorstep.
       </p>
 
       <div className="explore-menu-list">
@@ -19,7 +22,7 @@ const ExploreMenu = ({ category, setCategory }) => {
             <div
               onClick={() =>
                 setCategory((prev) =>
-                  prev === item.menu_name ? "All" : item.menu_name
+                  prev === item.menu_name ? "All" : item.menu_name,
                 )
               }
               key={index}
