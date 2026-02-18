@@ -42,7 +42,6 @@
   cursor: pointer;
 }
 
-/* ✅ Fixed Media Queries */
 @media (max-width: 1050px) {
   .header-content {
     max-width: 45%;

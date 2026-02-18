@@ -1,41 +1,54 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
 
   return (
     <div className="navbar">
-      <img src={assets.logo} alt="logo" className="logo" />
+      <Link to='/' ><img src={assets.logo} alt="logo" className="logo" /> </Link>
 
       <ul className="navbar-menu">
-        <li
-          onClick={() => setMenu("home")}
-          className={menu === "home" ? "active" : ""}
-        >
-          home
+        <li>
+          <Link
+            to="/"
+            onClick={() => setMenu("home")}
+            className={menu === "home" ? "active" : ""}
+          >
+            home
+          </Link>
         </li>
 
-        <li
-          onClick={() => setMenu("menu")}
-          className={menu === "menu" ? "active" : ""}
-        >
-          menu
+        <li>
+          <a
+            href="#explore-menu"
+            onClick={() => setMenu("menu")}
+            className={menu === "menu" ? "active" : ""}
+          >
+            menu
+          </a>
         </li>
 
-        <li
-          onClick={() => setMenu("mobile-app")}
-          className={menu === "mobile-app" ? "active" : ""}
-        >
-          mobile-app
+        <li>
+          <a
+            href="#app-download"
+            onClick={() => setMenu("mobile-app")}
+            className={menu === "mobile-app" ? "active" : ""}
+          >
+            mobile-app
+          </a>
         </li>
 
-        <li
-          onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
-        >
-          contact us
+        <li>
+          <a
+            href="#footer"
+            onClick={() => setMenu("contact-us")}
+            className={menu === "contact-us" ? "active" : ""}
+          >
+            contact us
+          </a>
         </li>
       </ul>
 
@@ -43,10 +56,10 @@ const Navbar = () => {
         <img src={assets.search_icon} alt="search" />
 
         <div className="navbar-search-icon">
-          <img src={assets.basket_icon} alt="basket" />
+          <Link to='/cart' ><img src={assets.basket_icon} alt="basket" /></Link>
           <div className="dot"></div>
         </div>
-        <button>sign in</button>
+        <button onClick={() => setShowLogin(true)}>sign in</button>
       </div>
     </div>
   );

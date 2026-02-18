@@ -17,6 +17,17 @@
   font-size: 18px;
 }
 
+.navbar-menu li {
+  list-style: none;
+}
+
+.navbar-menu a,
+.navbar-menu Link {
+  text-decoration: none;
+  color: #49557e;
+  cursor: pointer;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
@@ -58,7 +69,7 @@
   background-color: tomato;
   border-radius: 5px;
   top: -8px;
-  right: -8pxs;
+  right: -8px;
 }
 @media (max-width: 1050px) {
   .navbar .logo {
@@ -99,6 +110,6 @@
 }
 @media (max-width: 750px) {
   .navbar-menu {
-    display: nones;
+    display: none;
   }
 }
