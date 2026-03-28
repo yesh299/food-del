@@ -33,3 +33,29 @@
 .place-order .cart-total button {
   margin-top: 30px;
 }
+
+.payment-options {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-options-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.payment-option input {
+  margin: 0;
+  width: auto;
+}

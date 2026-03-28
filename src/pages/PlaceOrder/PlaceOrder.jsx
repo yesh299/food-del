@@ -5,8 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
-  const { getTotalCartAmount,token,food_list,cartItem,url } = useContext(StoreContext);
+  const { getTotalCartAmount,token,food_list,cartItem,url,setCartItem } = useContext(StoreContext);
   const [errorMessage, setErrorMessage] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("online");
 
   const [data,setData] = useState({
     firstName:"",
@@ -51,12 +52,23 @@ const PlaceOrder = () => {
     let orderData = {
       address:data,
       items:orderItems,
-      amount:getTotalCartAmount()+2
+      amount:getTotalCartAmount()+2,
+      paymentMethod,
     }
 
     try {
       let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}}); //API
       if (response.data.success) {
+        if (
+          response.data.paymentMethod === "cod" ||
+          paymentMethod === "cod" ||
+          !response.data.session_url
+        ) {
+          setCartItem({});
+          navigate("/my-orders", { replace: true });
+          return;
+        }
+
         const {session_url} = response.data;
         if (session_url) {
           window.location.replace(session_url);
@@ -135,7 +147,33 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <button type="submit" >PROCEED TO PAYMENT</button>
+          <div className="payment-options">
+            <p className="payment-options-title">Payment Method</p>
+            <label className="payment-option">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="online"
+                checked={paymentMethod === "online"}
+                onChange={(event) => setPaymentMethod(event.target.value)}
+              />
+              <span>Online Payment</span>
+            </label>
+            <label className="payment-option">
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="cod"
+                checked={paymentMethod === "cod"}
+                onChange={(event) => setPaymentMethod(event.target.value)}
+              />
+              <span>Cash on Delivery (COD)</span>
+            </label>
+          </div>
+
+          <button type="submit" >
+            {paymentMethod === "cod" ? "PLACE ORDER" : "PROCEED TO PAYMENT"}
+          </button>
           {errorMessage ? <p style={{ color: "#c0392b", marginTop: "10px" }}>{errorMessage}</p> : null}
         </div>
       </div>

@@ -20,7 +20,7 @@ const Verify = () => {
     try {
       const response = await axios.post(url + "/api/order/verify", { success, orderId });
       if (response.data.success) {
-        navigate("/my-orders");
+        navigate("/my-orders", { replace: true });
       } else {
         navigate("/");
       }
