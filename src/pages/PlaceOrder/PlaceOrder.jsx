@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount,token,food_list,cartItem,url } = useContext(StoreContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [data,setData] = useState({
     firstName:"",
@@ -27,8 +28,10 @@ const PlaceOrder = () => {
 
   const placeOrder = async (event) => {
     event.preventDefault();
+    setErrorMessage("");
+
     if (!token) {
-      alert("Please login before placing an order");
+      setErrorMessage("Please sign in before placing an order.");
       return;
     }
 
@@ -41,7 +44,7 @@ const PlaceOrder = () => {
     });
 
     if (orderItems.length === 0) {
-      alert("Your cart is empty");
+      setErrorMessage("Your cart is empty.");
       return;
     }
 
@@ -61,9 +64,13 @@ const PlaceOrder = () => {
         }
       }
 
-      alert(response.data.message || "Unable to create Stripe checkout session");
+      if (response.data.message?.toLowerCase().includes("stripe authentication failed")) {
+        setErrorMessage("Payment service is temporarily unavailable. Please try again in a few minutes.");
+      } else {
+        setErrorMessage(response.data.message || "Unable to create Stripe checkout session.");
+      }
     } catch (error) {
-      alert(error.response?.data?.message || "Payment request failed");
+      setErrorMessage(error.response?.data?.message || "Payment request failed.");
     }
   }
 
@@ -129,6 +136,7 @@ const navigate = useNavigate();
           </div>
 
           <button type="submit" >PROCEED TO PAYMENT</button>
+          {errorMessage ? <p style={{ color: "#c0392b", marginTop: "10px" }}>{errorMessage}</p> : null}
         </div>
       </div>
     </form>
